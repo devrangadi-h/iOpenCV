@@ -13,6 +13,9 @@
 		E70D994E2A030DB200129760 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E70D994C2A030DB200129760 /* Main.storyboard */; };
 		E70D99502A030DB400129760 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E70D994F2A030DB400129760 /* Assets.xcassets */; };
 		E70D99532A030DB400129760 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E70D99512A030DB400129760 /* LaunchScreen.storyboard */; };
+		E70D995B2A03113700129760 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70D995A2A03113700129760 /* opencv2.framework */; };
+		E70D995F2A0311E400129760 /* OpticalFlow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E70D995D2A0311E400129760 /* OpticalFlow.cpp */; };
+		E70D99622A03134700129760 /* OpticalFlowBridgeC.mm in Sources */ = {isa = PBXBuildFile; fileRef = E70D99612A03134700129760 /* OpticalFlowBridgeC.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,12 @@
 		E70D994F2A030DB400129760 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E70D99522A030DB400129760 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E70D99542A030DB400129760 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E70D995A2A03113700129760 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		E70D995C2A0311E400129760 /* OpenCVTest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "OpenCVTest-Bridging-Header.h"; sourceTree = "<group>"; };
+		E70D995D2A0311E400129760 /* OpticalFlow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OpticalFlow.cpp; sourceTree = "<group>"; };
+		E70D995E2A0311E400129760 /* OpticalFlow.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OpticalFlow.hpp; sourceTree = "<group>"; };
+		E70D99602A03126A00129760 /* OpticalFlowBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpticalFlowBridge.h; sourceTree = "<group>"; };
+		E70D99612A03134700129760 /* OpticalFlowBridgeC.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpticalFlowBridgeC.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E70D995B2A03113700129760 /* opencv2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +50,8 @@
 		E70D993A2A030DB200129760 = {
 			isa = PBXGroup;
 			children = (
+				E70D99612A03134700129760 /* OpticalFlowBridgeC.mm */,
+				E70D995A2A03113700129760 /* opencv2.framework */,
 				E70D99452A030DB200129760 /* OpenCVTest */,
 				E70D99442A030DB200129760 /* Products */,
 			);
@@ -59,10 +71,14 @@
 				E70D99462A030DB200129760 /* AppDelegate.swift */,
 				E70D99482A030DB200129760 /* SceneDelegate.swift */,
 				E70D994A2A030DB200129760 /* ViewController.swift */,
+				E70D995D2A0311E400129760 /* OpticalFlow.cpp */,
+				E70D99602A03126A00129760 /* OpticalFlowBridge.h */,
+				E70D995E2A0311E400129760 /* OpticalFlow.hpp */,
 				E70D994C2A030DB200129760 /* Main.storyboard */,
 				E70D994F2A030DB400129760 /* Assets.xcassets */,
 				E70D99512A030DB400129760 /* LaunchScreen.storyboard */,
 				E70D99542A030DB400129760 /* Info.plist */,
+				E70D995C2A0311E400129760 /* OpenCVTest-Bridging-Header.h */,
 			);
 			path = OpenCVTest;
 			sourceTree = "<group>";
@@ -99,6 +115,7 @@
 				TargetAttributes = {
 					E70D99422A030DB200129760 = {
 						CreatedOnToolsVersion = 14.3;
+						LastSwiftMigration = 1430;
 					};
 				};
 			};
@@ -138,7 +155,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E70D995F2A0311E400129760 /* OpticalFlow.cpp in Sources */,
 				E70D994B2A030DB200129760 /* ViewController.swift in Sources */,
+				E70D99622A03134700129760 /* OpticalFlowBridgeC.mm in Sources */,
 				E70D99472A030DB200129760 /* AppDelegate.swift in Sources */,
 				E70D99492A030DB200129760 /* SceneDelegate.swift in Sources */,
 			);
@@ -285,14 +304,24 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C88B69AX58;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenCVTest/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OpenCVTest;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -303,6 +332,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dev.devrobotics.OpenCVTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "OpenCVTest/OpenCVTest-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -313,14 +344,24 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C88B69AX58;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenCVTest/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OpenCVTest;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -331,6 +372,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = dev.devrobotics.OpenCVTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "OpenCVTest/OpenCVTest-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
