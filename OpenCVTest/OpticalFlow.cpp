@@ -51,14 +51,22 @@ double getAverage(vector<double> vector, int nElements) {
 
 Mat LaneDetector::detect_lane(Mat image) {
     
-    Mat colorFilteredImage = filter_only_yellow_white(image);
-    Mat regionOfInterest = crop_region_of_interest(colorFilteredImage);
-    Mat edgesOnly = detect_edges(regionOfInterest);
-    
-    vector<Vec4i> lines;
-    HoughLinesP(edgesOnly, lines, 1, CV_PI/180, 10, 20, 100);
-    
-    return draw_lines(image, lines);
+    // Convert image to grayscale
+    cv::Mat gray;
+    cv::cvtColor(image, gray, cv::COLOR_BGR2GRAY);
+
+    // Apply bilateral filter to smooth the image while preserving edges
+    cv::Mat smooth;
+    cv::bilateralFilter(image, smooth, 2, 75, 75);
+
+    // Detect edges using Canny edge detection
+    cv::Mat edges;
+    cv::Canny(gray, edges, 80, 50);
+
+    cv::Mat inverted;
+    cv::bitwise_not(edges, inverted);
+
+    return inverted;
 }
 
 Mat LaneDetector::filter_only_yellow_white(Mat image) {

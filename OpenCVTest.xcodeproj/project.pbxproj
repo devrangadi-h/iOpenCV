@@ -315,7 +315,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenCVTest/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = OpenCVTest;
+				INFOPLIST_KEY_CFBundleDisplayName = PencilSketchify;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -355,7 +355,7 @@
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = OpenCVTest/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = OpenCVTest;
+				INFOPLIST_KEY_CFBundleDisplayName = PencilSketchify;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
