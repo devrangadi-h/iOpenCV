@@ -21,7 +21,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     @IBOutlet weak var imageView: UIImageView!
     private var cameraSwitchButton: UIButton!
-    private var saveButton: UIButton!
+//    private var saveButton: UIButton!
     private let videoDataOutput = AVCaptureVideoDataOutput()
     private var captureSession: AVCaptureSession = AVCaptureSession()
     private func getFrames() {
@@ -108,20 +108,25 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         cameraSwitchButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
         cameraSwitchButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20).isActive = true
         
-        // Create the save button
-        saveButton = UIButton(type: .system)
-        saveButton.setTitle("Save", for: .normal)
-        saveButton.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
-        saveButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(saveButton)
-        
-        // Position the save button in the bottom left corner
-        NSLayoutConstraint.activate([
-            saveButton.widthAnchor.constraint(equalToConstant: 80),
-            saveButton.heightAnchor.constraint(equalToConstant: 40),
-            saveButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            saveButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
-        ])
+        let captureButton = UIButton(type: .system)
+        let imageSizeCapture = CGSize(width: 57.6, height: 57.6)
+        captureButton.setImage(UIImage(systemName: "camera.circle.fill")?.resize(to: imageSizeCapture), for: .normal)
+            captureButton.addTarget(self, action: #selector(captureButtonTapped), for: .touchUpInside)
+            captureButton.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(captureButton)
+
+            // Position the capture button in the bottom middle of the screen
+//            NSLayoutConstraint.activate([
+//                captureButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//                captureButton.widthAnchor.constraint(equalToConstant: 64),
+//                captureButton.heightAnchor.constraint(equalToConstant: 64),
+//                captureButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
+//            ])
+        captureButton.widthAnchor.constraint(equalToConstant: imageSizeCapture.width).isActive = true
+        captureButton.heightAnchor.constraint(equalToConstant: imageSizeCapture.height).isActive = true
+        captureButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+        captureButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
+
         
     }
     
@@ -181,14 +186,50 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             print("Failed to create AVCaptureDeviceInput: \(error)")
         }
     }
+//    @objc private func captureButtonTapped() {
+//        guard let currentImage = imageView.image else {
+//            return
+//        }
+//
+//        UIImageWriteToSavedPhotosAlbum(currentImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+//    }
     
-    @objc private func saveButtonTapped() {
+    @objc private func captureButtonTapped() {
         guard let currentImage = imageView.image else {
             return
         }
         
         UIImageWriteToSavedPhotosAlbum(currentImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        
+        // Display the message label
+        let messageLabel = UILabel()
+        messageLabel.text = "Image Saved to Gallery"
+        messageLabel.textColor = .white
+        messageLabel.backgroundColor = UIColor(white: 0, alpha: 0.7)
+        messageLabel.textAlignment = .center
+        messageLabel.font = UIFont.systemFont(ofSize: 18)
+        messageLabel.layer.cornerRadius = 8
+        messageLabel.clipsToBounds = true
+        messageLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(messageLabel)
+        
+        NSLayoutConstraint.activate([
+            messageLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            messageLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            messageLabel.widthAnchor.constraint(equalToConstant: 200),
+            messageLabel.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        
+        // Delayed dismiss after 2 seconds
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+               UIView.animate(withDuration: 0.5, animations: {
+                   messageLabel.alpha = 0
+               }, completion: { _ in
+                   messageLabel.removeFromSuperview()
+               })
+        }
     }
+
 
     @objc private func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
@@ -197,6 +238,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             print("Image saved successfully.")
         }
     }
+
 
     
 }

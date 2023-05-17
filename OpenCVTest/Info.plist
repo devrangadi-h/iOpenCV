@@ -4,6 +4,8 @@
 <dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Required for detecting road lanes</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Saving images to gallery</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
