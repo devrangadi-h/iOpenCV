@@ -16,6 +16,7 @@
 		E70D995B2A03113700129760 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E70D995A2A03113700129760 /* opencv2.framework */; };
 		E70D995F2A0311E400129760 /* OpticalFlow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E70D995D2A0311E400129760 /* OpticalFlow.cpp */; };
 		E70D99622A03134700129760 /* OpticalFlowBridgeC.mm in Sources */ = {isa = PBXBuildFile; fileRef = E70D99612A03134700129760 /* OpticalFlowBridgeC.mm */; };
+		E733528C2A2E804D00104EA1 /* PencilSketchify.png in Resources */ = {isa = PBXBuildFile; fileRef = E733528B2A2E804D00104EA1 /* PencilSketchify.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		E70D995E2A0311E400129760 /* OpticalFlow.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = OpticalFlow.hpp; sourceTree = "<group>"; };
 		E70D99602A03126A00129760 /* OpticalFlowBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpticalFlowBridge.h; sourceTree = "<group>"; };
 		E70D99612A03134700129760 /* OpticalFlowBridgeC.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = OpticalFlowBridgeC.mm; sourceTree = "<group>"; };
+		E733528B2A2E804D00104EA1 /* PencilSketchify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PencilSketchify.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +81,7 @@
 				E70D99512A030DB400129760 /* LaunchScreen.storyboard */,
 				E70D99542A030DB400129760 /* Info.plist */,
 				E70D995C2A0311E400129760 /* OpenCVTest-Bridging-Header.h */,
+				E733528B2A2E804D00104EA1 /* PencilSketchify.png */,
 			);
 			path = OpenCVTest;
 			sourceTree = "<group>";
@@ -145,6 +148,7 @@
 				E70D99532A030DB400129760 /* LaunchScreen.storyboard in Resources */,
 				E70D99502A030DB400129760 /* Assets.xcassets in Resources */,
 				E70D994E2A030DB200129760 /* Main.storyboard in Resources */,
+				E733528C2A2E804D00104EA1 /* PencilSketchify.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
