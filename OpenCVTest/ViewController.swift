@@ -21,7 +21,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     @IBOutlet weak var imageView: UIImageView!
     private var cameraSwitchButton: UIButton!
-//    private var saveButton: UIButton!
+    private let pencilSketchifyLabel = UILabel()
+    //    private var saveButton: UIButton!
     private let videoDataOutput = AVCaptureVideoDataOutput()
     private var captureSession: AVCaptureSession = AVCaptureSession()
     private func getFrames() {
@@ -72,7 +73,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         self.addCameraInput()
         self.getFrames()
         self.captureSession.startRunning()
-        
+        configurePencilSketchifyLabel()
+        addGestureRecognizers()
         // Set imageView to fill the screen
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -111,22 +113,22 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         let captureButton = UIButton(type: .system)
         let imageSizeCapture = CGSize(width: 57.6, height: 57.6)
         captureButton.setImage(UIImage(systemName: "camera.circle.fill")?.resize(to: imageSizeCapture), for: .normal)
-            captureButton.addTarget(self, action: #selector(captureButtonTapped), for: .touchUpInside)
-            captureButton.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(captureButton)
-
-            // Position the capture button in the bottom middle of the screen
-//            NSLayoutConstraint.activate([
-//                captureButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//                captureButton.widthAnchor.constraint(equalToConstant: 64),
-//                captureButton.heightAnchor.constraint(equalToConstant: 64),
-//                captureButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
-//            ])
+        captureButton.addTarget(self, action: #selector(captureButtonTapped), for: .touchUpInside)
+        captureButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(captureButton)
+        
+        // Position the capture button in the bottom middle of the screen
+        //            NSLayoutConstraint.activate([
+        //                captureButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        //                captureButton.widthAnchor.constraint(equalToConstant: 64),
+        //                captureButton.heightAnchor.constraint(equalToConstant: 64),
+        //                captureButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16)
+        //            ])
         captureButton.widthAnchor.constraint(equalToConstant: imageSizeCapture.width).isActive = true
         captureButton.heightAnchor.constraint(equalToConstant: imageSizeCapture.height).isActive = true
         captureButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
         captureButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20).isActive = true
-
+        
         
     }
     
@@ -186,13 +188,13 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             print("Failed to create AVCaptureDeviceInput: \(error)")
         }
     }
-//    @objc private func captureButtonTapped() {
-//        guard let currentImage = imageView.image else {
-//            return
-//        }
-//
-//        UIImageWriteToSavedPhotosAlbum(currentImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
-//    }
+    //    @objc private func captureButtonTapped() {
+    //        guard let currentImage = imageView.image else {
+    //            return
+    //        }
+    //
+    //        UIImageWriteToSavedPhotosAlbum(currentImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+    //    }
     
     @objc private func captureButtonTapped() {
         guard let currentImage = imageView.image else {
@@ -222,15 +224,15 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         // Delayed dismiss after 2 seconds
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-               UIView.animate(withDuration: 0.5, animations: {
-                   messageLabel.alpha = 0
-               }, completion: { _ in
-                   messageLabel.removeFromSuperview()
-               })
+            UIView.animate(withDuration: 0.5, animations: {
+                messageLabel.alpha = 0
+            }, completion: { _ in
+                messageLabel.removeFromSuperview()
+            })
         }
     }
-
-
+    
+    
     @objc private func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
             print("Error saving image: \(error)")
@@ -238,7 +240,57 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             print("Image saved successfully.")
         }
     }
-
-
     
+    private func configurePencilSketchifyLabel() {
+        pencilSketchifyLabel.text = "PencilSketchify"
+        pencilSketchifyLabel.textColor = .white
+        pencilSketchifyLabel.backgroundColor = .black
+        pencilSketchifyLabel.textAlignment = .center
+        pencilSketchifyLabel.alpha = 0
+        pencilSketchifyLabel.layer.cornerRadius = 8
+        pencilSketchifyLabel.clipsToBounds = true
+        pencilSketchifyLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(pencilSketchifyLabel)
+        
+        NSLayoutConstraint.activate([
+            pencilSketchifyLabel.widthAnchor.constraint(equalToConstant: 150),
+            pencilSketchifyLabel.heightAnchor.constraint(equalToConstant: 40),
+            pencilSketchifyLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            pencilSketchifyLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
+    private func addGestureRecognizers() {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+        view.addGestureRecognizer(panGesture)
+    }
+    
+    @objc private func handlePan(_ gestureRecognizer: UIPanGestureRecognizer) {
+        let touchLocation = gestureRecognizer.location(in: view)
+        
+        switch gestureRecognizer.state {
+        case .began, .changed:
+            showLabel(at: touchLocation)
+        case .ended, .cancelled:
+            hideLabel()
+        default:
+            break
+        }
+    }
+    
+    private func showLabel(at touchLocation: CGPoint) {
+        pencilSketchifyLabel.center = touchLocation
+        
+        UIView.animate(withDuration: 0.3) {
+            self.pencilSketchifyLabel.alpha = 1.0
+        }
+    }
+    
+    private func hideLabel() {
+        UIView.animate(withDuration: 0.3) {
+            self.pencilSketchifyLabel.alpha = 0.0
+        }
+    }
 }
+    
+
